@@ -2,3 +2,8 @@
 /user-platform/user-platform.iml
 /user-platform/user-web/user-web.iml
 /.idea/
+/user-platform/user-web/.extract/
+/user-platform/user-web/target/
+/user-platform/my-web-mvc/target/
+derby.log
+/user-platform/user-web/.flattened-pom.xml
