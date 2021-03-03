@@ -2,6 +2,9 @@ package org.geektimes.projects.user.sql;
 
 import org.geektimes.projects.user.domain.User;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -25,10 +28,10 @@ public class DBConnectionManager {
         if (connection == null) {
             try {
                 // jndi
-//                Context ic = new InitialContext();
-//                DataSource source = (DataSource) ic.lookup("java:comp/env/jdbc/UserPlatformDB");
-//                this.connection = source.getConnection();
-                this.connection = DriverManager.getConnection(databaseURL);
+                Context ic = new InitialContext();
+                DataSource source = (DataSource) ic.lookup("java:comp/env/jdbc/UserPlatformDB");
+                this.connection = source.getConnection();
+//                this.connection = DriverManager.getConnection(databaseURL);
             } catch (Exception throwables) {
                 throwables.printStackTrace();
             }
