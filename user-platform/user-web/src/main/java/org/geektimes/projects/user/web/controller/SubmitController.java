@@ -2,7 +2,7 @@ package org.geektimes.projects.user.web.controller;
 
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.service.UserService;
-import org.geektimes.projects.user.service.impl.UserServiceImpl;
+import org.geektimes.projects.user.service.UserServiceImpl;
 import org.geektimes.projects.user.utils.RequestUtils;
 import org.geektimes.web.mvc.controller.PageController;
 

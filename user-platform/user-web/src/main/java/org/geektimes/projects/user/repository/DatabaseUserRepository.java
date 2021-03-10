@@ -1,5 +1,6 @@
 package org.geektimes.projects.user.repository;
 
+import org.geektimes.context.ComponentContext;
 import org.geektimes.function.ThrowableFunction;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.sql.DBConnectionManager;
@@ -11,7 +12,6 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,8 +40,8 @@ public class DatabaseUserRepository implements UserRepository {
 
     private final DBConnectionManager dbConnectionManager;
 
-    public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {
-        this.dbConnectionManager = dbConnectionManager;
+    public DatabaseUserRepository() {
+        this.dbConnectionManager = ComponentContext.getInstance().getComponent("bean/DBConnectionManager");
     }
 
     private Connection getConnection() {
@@ -49,13 +49,8 @@ public class DatabaseUserRepository implements UserRepository {
     }
 
     @Override
-    public boolean save(User user) throws SQLException {
-        PreparedStatement preparedStatement = dbConnectionManager.getConnection().prepareStatement(INSERT_USER_DML_SQL);
-        preparedStatement.setString(1, user.getName());
-        preparedStatement.setString(2, user.getPassword());
-        preparedStatement.setString(3, user.getEmail());
-        preparedStatement.setString(4, user.getPhoneNumber());
-        return preparedStatement.execute();
+    public boolean save(User user) {
+        return false;
     }
 
     @Override
@@ -106,7 +101,6 @@ public class DatabaseUserRepository implements UserRepository {
                     // 以 id 为例，  user.setId(resultSet.getLong("id"));
                     setterMethodFromUser.invoke(user, resultValue);
                 }
-                users.add(user);
             }
             return users;
         }, e -> {
@@ -168,17 +162,7 @@ public class DatabaseUserRepository implements UserRepository {
 
         preparedStatementMethodMappings.put(Long.class, "setLong"); // long
         preparedStatementMethodMappings.put(String.class, "setString"); //
-    }
 
-    public static void main(String[] args) throws SQLException {
-        DBConnectionManager dbConnectionManager = new DBConnectionManager();
-        DatabaseUserRepository databaseUserRepository = new DatabaseUserRepository(dbConnectionManager);
-        User user = new User();
-        user.setEmail("123");
-        user.setName("name");
-        user.setPhoneNumber("number");
-        user.setPassword("12344");
-        databaseUserRepository.save(user);
-        databaseUserRepository.getAll().forEach(System.out::println);
+
     }
 }
