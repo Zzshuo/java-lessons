@@ -5,15 +5,11 @@ import org.geektimes.projects.user.sql.LocalTransactional;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.validation.Validator;
 
 public class UserServiceImpl implements UserService {
 
     @Resource(name = "bean/EntityManager")
     private EntityManager entityManager;
-
-    @Resource(name = "bean/Validator")
-    private Validator validator;
 
     @Override
     // 默认需要事务
@@ -22,6 +18,12 @@ public class UserServiceImpl implements UserService {
         // before process
 //        EntityTransaction transaction = entityManager.getTransaction();
 //        transaction.begin();
+        // 校验结果
+//        Set<ConstraintViolation<User>> violations = validator.validate(user);
+//
+//        violations.forEach(c -> {
+//            System.out.println(c.getMessage());
+//        });
 
         // 主调用
         entityManager.persist(user);

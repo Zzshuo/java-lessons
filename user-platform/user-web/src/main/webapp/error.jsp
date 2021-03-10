@@ -6,5 +6,7 @@
 <body>
 <div class="container-lg">
     <div>Register error</div>
+
+    <div>${message}</div>
 </div>
 </body>

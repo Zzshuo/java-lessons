@@ -23,6 +23,8 @@
                 <td><input type="submit" value="注册"></td>
             </tr>
         </table>
+
+        <div>${message}</div>
     </form>
 </div>
 </body>

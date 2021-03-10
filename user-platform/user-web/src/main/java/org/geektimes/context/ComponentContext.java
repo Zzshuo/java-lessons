@@ -100,8 +100,8 @@ public class ComponentContext {
             injectComponents(component, componentClass);
             // 初始阶段 - {@link PostConstruct}
             processPostConstruct(component, componentClass);
-            // TODO 实现销毁阶段 - {@link PreDestroy}
-            processPreDestroy();
+            // 实现销毁阶段 - {@link PreDestroy}
+            processPreDestroy(component, componentClass);
         });
     }
 
@@ -140,8 +140,20 @@ public class ComponentContext {
         });
     }
 
-    private void processPreDestroy() {
-        // TODO
+    private void processPreDestroy(Object component, Class<?> componentClass) {
+        Stream.of(componentClass.getMethods())
+                .filter(method ->
+                        !Modifier.isStatic(method.getModifiers()) &&      // 非 static
+                                method.getParameterCount() == 0 &&        // 没有参数
+                                method.isAnnotationPresent(PreDestroy.class) // 标注 @PreDestroy
+                ).forEach(method -> {
+            // 执行目标方法
+            try {
+                method.invoke(component);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
