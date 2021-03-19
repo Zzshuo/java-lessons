@@ -52,7 +52,7 @@ public class JpaDemo {
 
     private static DataSource getDataSource() {
         EmbeddedDataSource dataSource = new EmbeddedDataSource();
-        dataSource.setDatabaseName("/data/derby/db/user-platform");
+        dataSource.setDatabaseName("/opt/data/derby/user-platform");
         dataSource.setCreateDatabase("create");
         return dataSource;
     }

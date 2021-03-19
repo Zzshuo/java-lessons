@@ -139,8 +139,6 @@ public class DBConnectionManager { // JNDI Component
             User user = new User();
 
             // ResultSetMetaData 元信息
-
-
             ResultSetMetaData metaData = resultSet.getMetaData();
             System.out.println("当前表的名称：" + metaData.getTableName(1));
             System.out.println("当前表的列个数：" + metaData.getColumnCount());

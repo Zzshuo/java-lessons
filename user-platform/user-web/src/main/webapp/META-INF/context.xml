@@ -20,7 +20,7 @@
               maxActive="100" maxIdle="30" maxWait="10000"
               username="" password=""
               driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
-              url="jdbc:derby:/data/derby/db/user-platform;create=true"/>
+              url="jdbc:derby:/opt/data/derby/user-platform;create=true"/>
 
     <!-- FactoryBean -->
     <Resource name="bean/DBConnectionManager" auth="Container"
@@ -45,8 +45,11 @@
               type="org.geektimes.projects.user.service.UserServiceImpl"
               factory="org.apache.naming.factory.BeanFactory"/>
 
+	<!-- Tomcat JNDI 配置 -->
+	<Environment name="maxValue" value="12"
+				 type="java.lang.Integer" override="false"/>
+
     <Resource name="bean/SubmitController" auth="Container"
               type="org.geektimes.projects.user.web.controller.SubmitController"
               factory="org.apache.naming.factory.BeanFactory"/>
-
 </Context>
